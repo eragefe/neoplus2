@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo SP/DIF > /root/input
+arecord -c2 -fcd -Dhw:1 -q | aplay -Dhw:1 -q

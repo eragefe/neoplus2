@@ -1,44 +1,48 @@
-// Definitions for G-Dis DAC
 /dts-v1/;
 /plugin/;
 
 / {
-	compatible = "allwinner,sun8i-h3";
+        compatible = "radxa,rockpis", "rockchip,rk3308";
 
-	fragment@0 {
-		target = <&i2s0>;
-		__overlay__ {
-			pinctrl-0 = <&i2s0_pins>;
-			pinctrl-names = "default";
-			status = "okay";
-		};
-	};
+        fragment@0 {
+                target-path = "/";
+                
+                __overlay__ {
+                        i2s0: i2s0 {
+                        #sound-dai-cells = <0>;
+                        compatible = "rockchip,dummy-codec";
+                        status = "okay";
+                        };
+                };
+        };
 
-	fragment@1 {
-		target-path = "/";
-		__overlay__ {
-			i2s0_out: i2s0-out {
-				#sound-dai-cells = <0>;
-				compatible = "linux,spdif-dit";
-			};
+        fragment@1 {
+                target = <&i2s_8ch_0>;
+                
+                __overlay__ {
+                        status = "okay";
+                };
+        };
 
-			sound_i2s {
-				simple-audio-card,name = "G-Dis DAC";
-				compatible = "simple-audio-card";
-				simple-audio-card,format = "i2s";
-				simple-audio-card,bitclock-master = <&cpu_dai>; 
-				simple-audio-card,frame-master = <&cpu_dai>; 
-				simple-audio-card,mclk-fs = <256>;
-				status = "okay";
+        fragment@2 {
+                target = <&i2s_8ch_2>;
 
-				cpu_dai: simple-audio-card,cpu {
-					sound-dai = <&i2s0>;
-				};
+                __overlay__ {
+                        status = "disabled";
+                };
+        };
 
-				codec_dai: simple-audio-card,codec {
-					sound-dai = <&i2s0_out>;
-				};
-			};
-		};
-	};
+        fragment@3 {
+                target-path = "/";
+                
+                __overlay__ {
+                    sound {
+                        compatible = "rockchip,multicodecs-card";
+                        rockchip,card-name = "GDis_DAC_out";
+                        rockchip,mclk-fs = <256>;
+                        rockchip,cpu = <&i2s_8ch_0>;
+                        rockchip,codec = <&i2s0>;
+                        };
+                };
+        };
 };

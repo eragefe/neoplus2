@@ -1,0 +1,10 @@
+#!/bin/bash
+
+amixer -M -c1 set PCM 70 > /dev/null 2>&1
+aplay -D hw:1 /root/coax1.wav
+amixer -M -c1 set PCM $(cat /root/vol)% > /dev/null 2>&1
+
+#arecord -c2 -fcd -Dhw:1 -q | aplay -Dhw:1 -q
+systemctl start spdif
+
+echo SP/DIF > /root/input

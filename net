@@ -1,0 +1,13 @@
+#!/bin/bash
+
+pkill arecord
+sleep 1
+amixer -M -c1 set PCM 70 > /dev/null 2>&1
+
+if [[ $(hostname -I) ]]; then
+    aplay -D plughw:1 /root/net.wav
+else
+    aplay -D plughw:1 /root/nonet.wav
+fi
+
+amixer -M -c1 set PCM $(cat /root/vol)% > /dev/null 2>&1
