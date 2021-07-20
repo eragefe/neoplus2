@@ -3,6 +3,6 @@
 #pkill arecord
 systemctl stop spdif
 sleep 1
-amixer -M -c1 set PCM 70 > /dev/null 2>&1
+amixer -M -c1 set PCM 50% > /dev/null 2>&1
 aplay -D hw:1 /root/streamer.wav
 amixer -M -c1 set PCM $(cat /root/vol)% > /dev/null 2>&1
