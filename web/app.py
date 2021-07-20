@@ -64,7 +64,7 @@ def input():
     input = request.form["input"]
     if input == "coax1":
          os.system('bash /root/coaxial1')
-         os.system('echo "SP/DIF" > /root/input')
+         os.system('echo "S/PDIF" > /root/input')
     if input == "streamer":
          os.system('bash /root/streamer')
          os.system('echo "Streamer" > /root/input')
