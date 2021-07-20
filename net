@@ -2,7 +2,7 @@
 
 pkill arecord
 sleep 1
-amixer -M -c1 set PCM 70 > /dev/null 2>&1
+amixer -M -c1 set PCM 50% > /dev/null 2>&1
 
 if [[ $(hostname -I) ]]; then
     aplay -D plughw:1 /root/net.wav
